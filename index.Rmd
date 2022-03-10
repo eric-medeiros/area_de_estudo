@@ -80,13 +80,12 @@ barras <-
 ```
 
 
-Column { data-width=200}
--------------------------------------
+### Região do Lagamar
 
-### Objetivo 1
+```{r tabelas, include = FALSE}
 
-```{r}
-data %>%
+tab_1 <- 
+  data %>%
   as_tibble() %>%
   filter(Tipo == "Area", Linha == "1") %>% 
   arrange(Rota) %>% 
@@ -101,14 +100,11 @@ data %>%
   select(-1) %>%
   addHtmlTableStyle(align = "c|c|c", 
                     css.cell = c("width: 100;","width: 100;","width: 100;")) %>%
-  htmlTable(rnames = FALSE)
+  htmlTable(rnames = FALSE,
+            caption = "Objetivo 1")
 
-```
-
-### Objetivo 2
-
-```{r}
-data %>%
+tab_2 <- 
+  data %>%
   as_tibble() %>%
   filter(Tipo == "Area", Linha == "2") %>% 
   arrange(Rota) %>% 
@@ -122,30 +118,23 @@ data %>%
     by = c("Linha", "Rota")) %>% select(-1) %>%
   addHtmlTableStyle(align = "c|c|c", 
                     css.cell = c("width: 100;","width: 100;","width: 100;")) %>%
-  htmlTable(rnames = FALSE)
+  htmlTable(rnames = FALSE,
+            caption = "Objetivo 2")
 
-```
-
-### Objetivo 3
-
-```{r}
-data %>% 
+tab_3 <- 
+  data %>% 
   as_tibble() %>%
   filter(Tipo == "Area", Linha == "3") %>%
   arrange(Rota) %>%
   select(2:4) %>% 
   addHtmlTableStyle(align = "c|c|c", 
                     css.cell = c("width: 100;","width: 100;","width: 100;")) %>%
-  htmlTable(rnames = FALSE)
+  htmlTable(rnames = FALSE,
+            caption = "Objetivo 3")
 
 ```
 
 
-Column {data-width=800}
--------------------------------------
-    
-### Mapa
-    
 ```{r map}
 
 pal_green <- colorNumeric(palette = "Greens",
@@ -179,21 +168,33 @@ leaflet() %>%
   addPolylines(data = rota_bal, group = "Balsa", color = ~pal_lines(Tipo)) %>%
   addPolylines(data = rota_pes, group = "Pesca", color = ~pal_lines(Tipo)) %>%
   addCircleMarkers(data = pnts, group = "Estações de Coleta", color = "blue", radius = 5) %>%
+  addPopups(-48.020079, -25.056311, tab_1, group = "Medidas 1",
+            options = popupOptions(closeButton = FALSE)) %>%
+  addPopups(-47.976391, -25.072871, tab_2, group = "Medidas 2",
+            options = popupOptions(closeButton = FALSE)) %>%
+  addPopups(-47.933047, -25.059032, tab_3, group = "Medidas 3",
+            options = popupOptions(closeButton = FALSE)) %>%
   addCircleMarkers(data = barras, group = "Barras", color = "orange", radius = 7) %>%
   addLayersControl(baseGroups = c("Área de Estudo 1",
                                   "Área de Estudo 2",
                                   "Área de Estudo 3",
                                   ""),
                    overlayGroups = c("Barras",
-                                     "Rotas 1",
-                                     "Rotas 2",
                                      "Passeios",
                                      "Balsa",
                                      "Pesca",
-                                     "Estações de Coleta")) %>%
+                                     "Rotas 1",
+                                     "Rotas 2",
+                                     "Estações de Coleta",
+                                     "Medidas 1",
+                                     "Medidas 2",
+                                     "Medidas 3")) %>%
   hideGroup(c("Área de Estudo 1",
               "Área de Estudo 2",
               "Área de Estudo 3",
+              "Medidas 1",
+              "Medidas 2",
+              "Medidas 3",
               "Barras",
               "Rotas 1",
               "Rotas 2",
