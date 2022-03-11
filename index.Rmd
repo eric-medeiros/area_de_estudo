@@ -137,7 +137,7 @@ tab_3 <-
 
 ```{r map}
 
-pal_green <- colorNumeric(palette = "Blues",
+pal_blue <- colorNumeric(palette = "Blues",
                          domain = 3:-3)
 
 pal_lines <- colorFactor(palette = "viridis",
@@ -160,12 +160,12 @@ leaflet() %>%
   addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
   addProviderTiles("Stamen.TonerLite", group = "Mapa") %>%
   addScaleBar(position = "bottomleft") %>%
-  addPolygons(data = area_1, group = "Área de Estudo 1", weight = 2, color = ~pal_green(Rota)) %>%
-  addPolygons(data = area_2, group = "Área de Estudo 2", weight = 2, color = ~pal_green(Rota)) %>%
-  addPolygons(data = area_3, group = "Área de Estudo 3", weight = 2, color = ~pal_green(Rota)) %>%
-  addPolylines(data = rota_1, group = "Área de Estudo 1", weight = 2, color = ~pal_green(Rota)) %>%
-  addPolylines(data = rota_2, group = "Área de Estudo 2", weight = 2, color = ~pal_green(Rota)) %>%
-  addCircleMarkers(data = pnts, group = "Área de Estudo 3", color = "blue", radius = 5) %>%
+  addPolygons(data = area_1, group = "Área de Estudo 1", weight = 2, color = ~pal_blue(Rota)) %>%
+  addPolygons(data = area_2, group = "Área de Estudo 2", weight = 2, color = ~pal_blue(Rota)) %>%
+  addPolygons(data = area_3, group = "Área de Estudo 3", weight = 2, color = ~pal_blue(Rota)) %>%
+  addPolylines(data = rota_1, group = "Área de Estudo 1", weight = 2, color = ~pal_blue(Rota)) %>%
+  addPolylines(data = rota_2, group = "Área de Estudo 2", weight = 2, color = ~pal_blue(Rota)) %>%
+  addCircleMarkers(data = pnts, group = "Área de Estudo 3", color = "blue", radius = 4) %>%
   addPolylines(data = rota_pas, group = "Área de Estudo 2", color = ~pal_lines(Tipo)) %>%
   addPolylines(data = rota_bal, group = "Área de Estudo 2", color = ~pal_lines(Tipo)) %>%
   addPolylines(data = rota_pes, group = "Área de Estudo 2", color = ~pal_lines(Tipo)) %>%
